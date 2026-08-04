@@ -1,0 +1,1 @@
+<img src="https://socialify.git.ci/siyamthandagwamanda/CodeTribe_Weather_App_Task/image?language=1&owner=1&name=1&stargazers=1&theme=Light" alt="CodeTribe_Weather_App_Task" width="640" height="320" />
