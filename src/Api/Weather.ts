@@ -30,6 +30,7 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
   }
 
   const weatherData = await weatherResponse.json();
+  console.log(weatherData);
   const current = weatherData.current;
   
   return {
