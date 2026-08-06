@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import type { WeatherData } from "../Types/Weather";
 
 export const getWeather = async (city: string): Promise<WeatherData> => {
@@ -30,8 +31,6 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
   }
 
   const weatherData = await weatherResponse.json();
-  console.log(weatherData);
-  const current = weatherData.current;
   
   return {
     cityName: city,
@@ -44,3 +43,4 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
     condition: "Current Weather",
   };
 };
+

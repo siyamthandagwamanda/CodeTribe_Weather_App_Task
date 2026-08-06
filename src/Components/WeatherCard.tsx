@@ -10,6 +10,7 @@ function WeatherCard({
   low,
   humidity,
   windSpeed,
+
   
 }: WeatherData) {
   return (
