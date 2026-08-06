@@ -1,21 +1,25 @@
-import { BrowserRouter, createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Routes } from "react-router-dom";
-import { Route } from "react-router-dom";
-import  {HomePage}  from "../Pages/HomePage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Structure } from "../Components/Structure";
+import { HomePage } from "../Pages/HomePage";
+import { AddressKeptPage } from "../Pages/AddressKeptPage";
 
 const router = createBrowserRouter([
-    {
-        element: <Structure />,
-        children: [
-           {
-                path: "/",
-                element: <HomePage />
-           },
-        ],
-    },
+  {
+    path: "/",
+    element: <Structure />,
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "address-kept",
+        element: <AddressKeptPage />,
+      },
+    ],
+  },
 ]);
 
 export const WeatherAppRouter = () => {
-    return <RouterProvider router={router}/>
-}
+  return <RouterProvider router={router} />;
+};
