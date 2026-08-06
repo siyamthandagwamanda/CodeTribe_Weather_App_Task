@@ -8,7 +8,7 @@ export type WeatherData = {
     longitude: number;
     latitude: number;
     feelsLike: number;
-    weatherCode: string;
+    weatherCode: number;
     windSpeed: number;
     humidity: number;
 };
