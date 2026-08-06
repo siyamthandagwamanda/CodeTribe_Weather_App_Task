@@ -5,5 +5,16 @@ import { Footer } from "./Footer";
 import '../Styles/Structure.css';
 
 export const Structure = () => {
-    
+    return (
+        <div className="Structure">
+            <Header />
+            <Navigation />
+
+            <main className="main-content">
+                <Outlet />
+            </main>
+
+            <Footer />
+        </div>
+    )
 }
