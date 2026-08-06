@@ -21,7 +21,7 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
 
   const { latitude, longitude, name: formattedName, country } = geoData.results[0];
 
-  // Step 2: Request current forecast using Weather API
+
   const weatherUrl = `https://open-meteo.com{latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=auto`;
   const weatherResponse = await fetch(weatherUrl);
 
@@ -32,7 +32,7 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
   const weatherData = await weatherResponse.json();
   const current = weatherData.current;
 
-  // Step 3 & 4: Transform the API response and return WeatherData object
+  
   return {
     cityName: `${formattedName}, ${country}`,
     temperature: Math.round(current.temperature_2m),

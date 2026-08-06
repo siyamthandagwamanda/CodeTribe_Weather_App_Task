@@ -1,12 +1,14 @@
 export type WeatherData = {
-    city: string;
+    cityName: string;
     country: string;
     temperature: number;
     condition: string;
     high: number;
     low: number;
     longitude: number;
-    latitude: number
+    latitude: number;
+    feelsLike: number;
+    weatherCode: string;
     windSpeed: number;
     humidity: number;
 };
