@@ -5,7 +5,6 @@ export type WeatherData = {
     condition: string;
     high: number;
     low: number;
-    feelsLike: number;
     windSpeed: number;
     humidity: number;
 };
