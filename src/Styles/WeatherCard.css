@@ -1,0 +1,51 @@
+.weather-card {
+  width: min(700px, 100%);
+  margin: 2rem auto;
+  padding: 2rem;
+
+  background-color: var(--surface-color);
+
+  border-radius: 1rem;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.temperature {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.condition {
+  font-size: 1.2rem;
+  color: #6b7280;
+}
+
+.weather-details {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 1rem;
+}
+
+.weather-details div {
+  padding: 1rem;
+
+  border-radius: 0.75rem;
+
+  background-color: #f5f7fb;
+}
+
+.weather-details span {
+  display: block;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.weather-details strong {
+  font-size: 1.1rem;
+}
