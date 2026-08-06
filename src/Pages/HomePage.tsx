@@ -5,10 +5,17 @@ import { SearchBar } from "../Components/SearchBar";
 export const HomePage = () => {
     const [city, setCity] = useState("");
 
+    function handleSearch(){
+        console.log("Searching for:", city);
+    }
+
     return(
-        <main>
-            <h1>Weather Application.</h1>
-            <p>Search for weather information by city.</p>
-        </main>
+      <>
+        <SearchBar
+            city={city}
+            onCityChange={setCity}
+            onSearch={handleSearch}
+        />
+      </>
     )
 }
