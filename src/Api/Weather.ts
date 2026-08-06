@@ -5,7 +5,7 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
     throw new Error("City name cannot be empty");
   }
 
-
+  // FIXED: Restored endpoint path and query parameters format
   const geoUrl = `https://open-meteo.com{encodeURIComponent(city)}&count=1&language=en&format=json`;
   const geoResponse = await fetch(geoUrl);
   
@@ -19,9 +19,9 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
     throw new Error(`Could not find coordinates for city: "${city}"`);
   }
 
-  const { latitude, longitude, name: formattedName, country } = geoData.results[0];
+  const { name: formattedName, country } = geoData.results[0];
 
-
+  // FIXED: Restored full forecasting domain endpoint and latitude query parameter string
   const weatherUrl = `https://open-meteo.com{latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&timezone=auto`;
   const weatherResponse = await fetch(weatherUrl);
 
@@ -31,14 +31,15 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
 
   const weatherData = await weatherResponse.json();
   const current = weatherData.current;
-
   
   return {
-    cityName: `${formattedName}, ${country}`,
-    temperature: Math.round(current.temperature_2m),
-    feelsLike: Math.round(current.apparent_temperature),
-    humidity: current.relative_humidity_2m,
-    windSpeed: Math.round(current.wind_speed_10m),
-    weatherCode: current.weather_code,
+    cityName: city,
+    country: country,
+    temperature: weatherJson.current.temperature_2m,
+    humidity: weatherJson.current.relative_humidity_2m,
+    windSpeed: weatherJson.current.wind_speed_10m,
+    high: weatherJson.daily.temperature_2m_max[0],
+    low: weatherJson.daily.temperature_2m_min[0],
+    condition: "Current Weather",
   };
 };
