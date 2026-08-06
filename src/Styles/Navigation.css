@@ -1,0 +1,15 @@
+.navigation {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.navigation a {
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+.navigation a:hover {
+  color: var(--primary-color);
+}
