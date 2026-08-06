@@ -5,6 +5,8 @@ export type WeatherData = {
     condition: string;
     high: number;
     low: number;
-    windSpped: number;
+    longitude: number;
+    latitude: number
+    windSpeed: number;
     humidity: number;
 };
