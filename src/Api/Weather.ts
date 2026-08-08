@@ -54,6 +54,12 @@ async function fetchJson<T>(url: string, errorMessage: string): Promise<T>{
    return response.json();
 }
 
+export const getWeather = async (city: string): Promise<WeatherData> => {
+  const trimmedCity = city.trim();
+  if (!trimmedCity){
+    throw new Error("City name cannot be empty");
+  }
+}
 
 
 
