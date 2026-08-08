@@ -35,7 +35,6 @@ export const HomePage = () => {
   return (
     <main className="home-page">
       <SearchBar city={city} onCityChange={setCity} onSearch={handleSearch} />
-
       
       {isLoading && <p className="loading">Loading weather...</p>}
       {error && <p className="error-message">{error}</p>}
