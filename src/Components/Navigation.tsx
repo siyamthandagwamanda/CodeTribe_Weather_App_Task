@@ -9,8 +9,8 @@ export const Navigation = () => {
                 Home
             </NavLink>
 
-              <NavLink to="/Address kept" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
-                Address Kept.
+              <NavLink to="/MyLocations" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+                My Locations.
             </NavLink>
         </nav>
     )
