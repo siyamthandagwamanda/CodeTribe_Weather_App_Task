@@ -1,6 +1,6 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { SearchBar } from "../Components/SearchBar";
-import  WeatherCard  from "../Components/WeatherCard";
+import WeatherCard from "../Components/WeatherCard";
 import { getWeather } from "../Api/Weather";
 import type { WeatherData } from "../Types/Weather";
 
@@ -12,7 +12,11 @@ export const HomePage = () => {
 
   const handleSearch = async () => {
     const trimmedCity = city.trim();
-    if (!trimmedCity) return;
+    if (!trimmedCity) {
+      setError("Please enter a city name.");
+      setWeather(null);
+      return;
+    }
 
     setIsLoading(true);
     setError(null);
@@ -22,36 +26,20 @@ export const HomePage = () => {
       setWeather(weatherData);
     } catch (err) {
       setWeather(null);
-      setError(err instanceof Error ? err.message : "An unexpected error occurred");
+      setError(err instanceof Error ? err.message : "An unexpected error occurred.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <main>
-    <SearchBar
-        city={city}
-        onCityChange={setCity}
-        onSearch={handleSearch}
-    />
+    <main className="home-page">
+      <SearchBar city={city} onCityChange={setCity} onSearch={handleSearch} />
 
-
-    {isLoading && (
-      <p className="loading">
-        Loading local weather metrics...
-      </p>
-    )}
-
-    {error && (
-      <p className="error-message">
-        {error}
-      </p>
-    )}
-
-    {weather && !isLoading && (
-      <WeatherCard {...weather} />
-    )}
-  </main>
+      
+      {isLoading && <p className="loading">Loading weather...</p>}
+      {error && <p className="error-message">{error}</p>}
+      {weather && !isLoading && <WeatherCard {...weather} />}
+    </main>
   );
 };
