@@ -84,6 +84,16 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
     weatherUrl, "Weather data is unavailable right now"
   );
 
+  return{
+    cityName: name,
+    country,
+    temperature: forecast.current.temperature_2m,
+    humidity: forecast.current.relative_humidity_2m,
+    windSpeed: forecast.current.wind_speed_10m,
+    high: forecast.daily.temperature_2m_max[0],
+    low: forecast.daily.temperature_2m_min[0],
+    condition: weatherConditions[forecast.current.weather_code] ?? "Unknown",
+  }
 }
 
 
