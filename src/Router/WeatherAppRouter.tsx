@@ -1,17 +1,17 @@
 import { createBrowserRouter, RouterProvider, type RouteObject } from "react-router-dom";
 import { Structure } from "../Components/Structure";
 import { HomePage } from "../Pages/HomePage";
-// import { MyLocations } from "../Pages/MyLocationsPage";
+import { MyLocationsPage } from "../Pages/MyLocationsPage";
 
 const routes: RouteObject[] = [
   {
     path: "/",
     element: <Structure />,
     children: [{index: true, element: <HomePage/>},
-    // {
-    //   path: "MyLocations",
-    //   element: <MyLocationsPage />
-    // },
+    {
+      path: "MyLocations",
+      element: <MyLocationsPage />
+    },
     ],
   },
 ];
