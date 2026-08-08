@@ -36,6 +36,7 @@ export const HomePage = () => {
         onSearch={handleSearch}
     />
 
+
     {isLoading && (
       <p className="loading">
         Loading local weather metrics...
@@ -51,6 +52,6 @@ export const HomePage = () => {
     {weather && !isLoading && (
       <WeatherCard {...weather} />
     )}
-    </main>
+  </main>
   );
 };
