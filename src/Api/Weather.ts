@@ -72,8 +72,14 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
     throw new Error(`No city found matching "${trimmedCity}"`);
   }
 
-  
+  const { name, country, latitude, longitude } = match;
 
+  const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}` +
+    `&longitude=${longitude}` +
+    `&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m` +
+    `&daily=temperature_2m_max,temperature_2m_min` +
+    `&timezone=auto`;
+  
 
 }
 
