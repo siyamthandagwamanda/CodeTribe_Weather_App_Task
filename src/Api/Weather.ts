@@ -33,8 +33,18 @@ interface GeoResponse{
   results?: GeoResult[];
 }
 
-
-
+interface ForecastResponse{
+  current:{
+    temperature_2m: number;
+    relative_humidity_2m: number;
+    wind_speed_10m: number;
+    weather_code: number;
+  };
+  daily:{
+    temperature_2m_max: number[];
+    temperature_2m_min: number[];
+  };
+}
 
 
 
