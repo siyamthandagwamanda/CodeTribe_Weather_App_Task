@@ -1,35 +1,28 @@
-import React from "react";
-import '../Styles/SearchBar.css';
+import type { FormEvent } from "react";
+import "../Styles/SearchBar.css";
 
 type SearchBarProps = {
-    city: string;
-    onCityChange: (value: string) => void;
-    onSearch: () => void;
+  city: string;
+  onCityChange: (value: string) => void;
+  onSearch: () => void;
 };
 
-export const SearchBar = ({
-    city, 
-    onCityChange,
-    onSearch,
+export const SearchBar = ({ city, onCityChange, onSearch }: SearchBarProps) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onSearch();
+  };
 
-}: SearchBarProps) => {
-    const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        onSearch();
-    };
-
-    return(
-        <form className="search-bar" onSubmit={handleSubmit}>
-            <input type="text" placeholder="Enter a City"
-                   value={city} 
-                   onChange={(event) => onCityChange(event.target.value)} 
-            />
-            <button type="submit">
-                Search
-            </button>
-        </form>
-    )
-      
+  return (
+    <form className="search-bar" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Enter a city"
+        value={city}
+        onChange={(event) => onCityChange(event.target.value)}
+        aria-label="City name"
+      />
+      <button type="submit">Search</button>
+    </form>
+  );
 };
-
-    
