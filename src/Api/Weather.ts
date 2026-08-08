@@ -22,6 +22,23 @@ const weatherConditions: Record<number, string> = {
   95: "Thunderstorm",
 };
 
+interface GeoResult {
+  name: string;
+  country: string;
+  latitude: number;
+  longitude: number;
+}
+
+
+
+
+
+
+
+
+
+
+
 export const getWeather = async (city: string): Promise<WeatherData> => {
   const trimmedCity = city.trim();
   if (!trimmedCity){
