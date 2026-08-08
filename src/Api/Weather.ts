@@ -59,6 +59,9 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
   if (!trimmedCity){
     throw new Error("City name cannot be empty");
   }
+
+  const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
+                  trimmedCity)}&count=1&language=en&format=json`;
 }
 
 
