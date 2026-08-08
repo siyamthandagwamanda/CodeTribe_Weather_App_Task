@@ -62,6 +62,19 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
 
   const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
                   trimmedCity)}&count=1&language=en&format=json`;
+  
+  const geoData = await fetchJson<GeoResponse>(
+    geoUrl, "Couldn't reach the geocoding service, try again in a moment"
+  );
+
+  const match = geoData.results?.[0];
+  if (!match){
+    throw new Error(`No city found matching "${trimmedCity}"`);
+  }
+
+  
+
+
 }
 
 
