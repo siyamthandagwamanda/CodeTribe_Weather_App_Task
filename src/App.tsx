@@ -1,5 +1,5 @@
-import "../src/Styles/Global.css"
 import { WeatherAppRouter } from './Router/WeatherAppRouter';
+import "../src/App.css"
 
 export const App = () => {
   return <WeatherAppRouter />
