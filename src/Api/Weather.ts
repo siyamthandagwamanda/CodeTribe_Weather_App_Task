@@ -80,6 +80,9 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
     `&daily=temperature_2m_max,temperature_2m_min` +
     `&timezone=auto`;
   
+  const forecast = await fetchJson<ForecastResponse>(
+    weatherUrl, "Weather data is unavailable right now"
+  );
 
 }
 
