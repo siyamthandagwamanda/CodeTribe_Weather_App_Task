@@ -21,3 +21,7 @@ const weatherConditions: Record<number, string> = {
   82: "Violent Rain Showers",
   95: "Thunderstorm",
 };
+
+export const getWeather = async (city: string): Promise<WeatherData> => {
+  
+}
