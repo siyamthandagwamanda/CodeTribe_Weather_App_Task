@@ -23,5 +23,8 @@ const weatherConditions: Record<number, string> = {
 };
 
 export const getWeather = async (city: string): Promise<WeatherData> => {
-  
+  const trimmedCity = city.trim();
+  if (!trimmedCity){
+    throw new Error("City name cannot be empty");
+  }
 }
