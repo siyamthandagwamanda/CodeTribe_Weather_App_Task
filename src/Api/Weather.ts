@@ -1,0 +1,1 @@
+import type { WeatherData } from "../Types/Weather";
