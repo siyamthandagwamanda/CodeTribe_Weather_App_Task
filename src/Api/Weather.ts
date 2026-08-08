@@ -46,9 +46,14 @@ interface ForecastResponse{
   };
 }
 
-async function fetchJson<T>(url: ) {
-  
+async function fetchJson<T>(url: string, errorMessage: string): Promise<T>{
+   const response = await fetch(url);
+   if (!response.ok){
+     throw new Error(errorMessage);
+   }
+   return response.json();
 }
+
 
 
 
