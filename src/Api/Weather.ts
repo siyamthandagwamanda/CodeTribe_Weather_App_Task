@@ -29,6 +29,10 @@ interface GeoResult {
   longitude: number;
 }
 
+interface GeoResponse{
+  results?: GeoResult[];
+}
+
 
 
 
