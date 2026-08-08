@@ -1,4 +1,4 @@
-import "../src/Styles/Global.css"
+import "../src/App.css"
 
 import { WeatherAppRouter } from './Router/WeatherAppRouter';
 
