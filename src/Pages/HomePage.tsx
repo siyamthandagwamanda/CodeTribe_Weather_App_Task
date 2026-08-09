@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SearchBar } from "../Components/SearchBar";
 import WeatherCard from "../Components/WeatherCard";
 import { getWeather } from "../Api/Weather";
+import { saveWeather } from "../Utils/SavedWeatherStorage";
 import type { WeatherData } from "../Types/Weather";
 
 export const HomePage = () => {
@@ -35,10 +36,17 @@ export const HomePage = () => {
   return (
     <main className="home-page">
       <SearchBar city={city} onCityChange={setCity} onSearch={handleSearch} />
-      
+
       {isLoading && <p className="loading">Loading weather...</p>}
       {error && <p className="error-message">{error}</p>}
-      {weather && !isLoading && <WeatherCard {...weather} />}
+      {weather && !isLoading && (
+        <>
+          <WeatherCard {...weather} />
+          <button type="button" className="save-city-button" onClick={() => saveWeather(weather)}>
+            Save City
+          </button>
+        </>
+      )}
     </main>
   );
 };
