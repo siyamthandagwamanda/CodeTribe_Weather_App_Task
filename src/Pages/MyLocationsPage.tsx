@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import WeatherCard from "../Components/WeatherCard";
 import { getSavedWeather, removeWeather, clearSavedWeather } from "../Utils/SavedWeatherStorage";
 import type { WeatherData } from "../Types/Weather";
+import "../Styles/MyLocationsPage.css";
 
 export const MyLocationsPage = () => {
   const [savedWeather, setSavedWeather] = useState<WeatherData[]>([]);
