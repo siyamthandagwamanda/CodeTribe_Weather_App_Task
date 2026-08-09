@@ -12,7 +12,8 @@ A simple React + TypeScript weather application that allows users to search for 
 * Daily high and low temperatures
 * Humidity
 * Wind speed
-* Save cities to **Address Kept**
+* Save cities to **My Locations
+* **
 * Saved cities remain after refreshing using `localStorage`
 * Responsive layout
 
