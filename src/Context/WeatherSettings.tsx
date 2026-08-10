@@ -30,4 +30,13 @@ export const WeatherSettingsProvider = ({ children }: WeatherSettingsProviderPro
         const saved = localStorage.getItem(THEME_KEY);
         return saved === "dark" ? "dark" : "light";
     });
+
+    useEffect(() => {
+        localStorage.setItem(TEMPERATURE_UNIT_KEY, temperatureUnit);
+    }, [temperatureUnit]);
+
+    useEffect(() => {
+        localStorage.setItem(THEME_KEY, theme);
+        document.body.setAttribute("dark-theme", theme);
+    }, [theme]);
 }
