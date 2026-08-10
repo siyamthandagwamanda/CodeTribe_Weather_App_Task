@@ -5,7 +5,7 @@ const navLinkClass = ({ isActive}: {isActive: boolean}) => isActive ? "nav-link 
 
 const links = [
     { to: "/", label: "Home" },
-    { to: "MyLocations", label: "My Locations"},
+    { to: "/my-locations", label: "My Locations"},
 ];
 
 export const Navigation = () => (
