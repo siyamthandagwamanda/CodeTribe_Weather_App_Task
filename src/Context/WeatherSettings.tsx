@@ -39,4 +39,20 @@ export const WeatherSettingsProvider = ({ children }: WeatherSettingsProviderPro
         localStorage.setItem(THEME_KEY, theme);
         document.body.setAttribute("dark-theme", theme);
     }, [theme]);
+
+    const toggleTemperatureUnit = () => {
+        setTemperatureUnit((current) => (current === "C" ? "F" : "C"));
+    };
+
+    const toggleTheme = () => {
+        setTheme((current) => (current === "light" ? "dark" : "light"));
+    };
+
+    return (
+        <WeatherSettings.Provider
+            value{{ temperatureUnit , theme , toggleTemperatureUnit , toggleTheme }} 
+        >
+            {children}
+        </WeatherSettings.Provider>
+    );
 }
