@@ -5,7 +5,7 @@ type TemperatureUnit = "C" | "F";
 type Theme = "light" | "dark";
 
 type WeatherSettingsContextType = {
-    temperatureUnite?: TemperatureUnit;
+    temperatureUnit: TemperatureUnit;
     theme: Theme;
     toggleTemperatureUnit: () => void;
     toggleTheme: () => void;
@@ -50,7 +50,7 @@ export const WeatherSettingsProvider = ({ children }: WeatherSettingsProviderPro
 
     return (
         <WeatherSettings.Provider
-            value= {{ temperatureUnite, theme, toggleTemperatureUnit , toggleTheme }} 
+            value = {{ temperatureUnit, theme, toggleTemperatureUnit , toggleTheme }} 
         >
             {children}
         </WeatherSettings.Provider>
