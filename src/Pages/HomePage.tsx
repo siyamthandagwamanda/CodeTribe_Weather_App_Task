@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { SearchBar } from "../Components/SearchBar";
 import  WeatherCard  from "../Components/WeatherCard";
 import { getWeather } from "../Api/Weather";
+import { WeatherCardContainer } from "../Components/WeatherCardContainer";
 import type { WeatherData } from "../Types/Weather";
 
 export const HomePage = () => {
@@ -18,8 +19,8 @@ export const HomePage = () => {
     setError(null);
 
     try {
-      const weatherData = await getWeather(trimmedCity);
-      setWeather(weatherData);
+      const weatherData = await WeatherCardContainer(trimmedCity);
+      setWeather(weather);
     } catch (err) {
       setWeather(null);
       setError(err instanceof Error ? err.message : "An unexpected error occurred");
