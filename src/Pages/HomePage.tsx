@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SearchBar } from "../Components/SearchBar";
 import WeatherCard from "../Components/WeatherCard";
-import { getWeather } from "../Api/Weather";
+import { getWeather } from "../Api/Weather"
 import { saveWeather } from "../Utils/SavedWeatherStorage";
 import type { WeatherData } from "../Types/Weather";
 
@@ -23,7 +23,6 @@ export const HomePage = () => {
     setError(null);
 
     try {
-      // const weatherData = await WeatherCardContainer(trimmedCity);
       setWeather(weather);
     } catch (err) {
       setWeather(null);
