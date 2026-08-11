@@ -1,7 +1,10 @@
 import type { WeatherData } from "../Types/Weather";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 7f77826bb0e3c4fb80aabd1a65a9250b70e0dc72
 const weatherConditions: Record<number, string> = {
   0: "Clear sky",
   1: "Mainly Clear",
@@ -97,6 +100,12 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
     condition: weatherConditions[forecast.current.weather_code] ?? "Unknown",
   }
 }
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 7f77826bb0e3c4fb80aabd1a65a9250b70e0dc72
 
 
 

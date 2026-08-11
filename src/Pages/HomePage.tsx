@@ -3,7 +3,11 @@ import { SearchBar } from "../Components/SearchBar";
 import WeatherCard from "../Components/WeatherCard";
 import { getWeather } from "../Api/Weather";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { WeatherCardContainer } from "../Components/WeatherCardContainer";
+=======
+import { saveWeather } from "../Utils/SavedWeatherStorage";
+>>>>>>> 7f77826bb0e3c4fb80aabd1a65a9250b70e0dc72
 =======
 import { saveWeather } from "../Utils/SavedWeatherStorage";
 >>>>>>> 7f77826bb0e3c4fb80aabd1a65a9250b70e0dc72
