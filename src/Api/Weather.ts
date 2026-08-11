@@ -22,76 +22,87 @@ const weatherConditions: Record<number, string> = {
   95: "Thunderstorm",
 };
 
-interface GeoResult {
+type City = {
   name: string;
   country: string;
   latitude: number;
   longitude: number;
-}
+};
 
-interface GeoResponse{
-  results?: GeoResult[];
-}
+type CityResponse = {
+  results?: City[];
+};
 
-interface ForecastResponse{
-  current:{
+type WeatherResponse = {
+  current: {
     temperature_2m: number;
     relative_humidity_2m: number;
     wind_speed_10m: number;
     weather_code: number;
   };
-  daily:{
+
+  daily: {
     temperature_2m_max: number[];
     temperature_2m_min: number[];
   };
-}
+};
 
-async function fetchJson<T>(url: string, errorMessage: string): Promise<T>{
-   const response = await fetch(url);
-   if (!response.ok){
-     throw new Error(errorMessage);
-   }
-   return response.json();
-}
+export async function getWeather(city: string): Promise<WeatherData> {
+  const cityName = city.trim();
 
-export const getWeather = async (city: string): Promise<WeatherData> => {
-  const trimmedCity = city.trim();
-  if (!trimmedCity){
+  if (!cityName) {
     throw new Error("City name cannot be empty");
   }
 
-  const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
-                  trimmedCity)}&count=1&language=en&format=json`;
-  
-  const geoData = await fetchJson<GeoResponse>(
-    geoUrl, "Couldn't reach the geocoding service, try again in a moment"
-  );
+ 
+  const cityUrl =
+    `https://geocoding-api.open-meteo.com/v1/search` +
+    `?name=${encodeURIComponent(cityName)}` +
+    `&count=1` +
+    `&language=en` +
+    `&format=json`;
 
-  const match = geoData.results?.[0];
-  if (!match){
-    throw new Error(`No city found matching "${trimmedCity}"`);
+  const cityResponse = await fetch(cityUrl);
+
+  if (!cityResponse.ok) {
+    throw new Error(
+      "Couldn't reach the city service, try again in a moment"
+    );
   }
 
-  const { name, country, latitude, longitude } = match;
+  const cityData: CityResponse = await cityResponse.json();
 
-  const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}` +
-    `&longitude=${longitude}` +
+  const location = cityData.results?.[0];
+
+  if (!location) {
+    throw new Error(`No city found matching "${cityName}"`);
+  }
+
+ 
+  const weatherUrl =
+    `https://api.open-meteo.com/v1/forecast` +
+    `?latitude=${location.latitude}` +
+    `&longitude=${location.longitude}` +
     `&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m` +
     `&daily=temperature_2m_max,temperature_2m_min` +
     `&timezone=auto`;
-  
-  const forecast = await fetchJson<ForecastResponse>(
-    weatherUrl, "Weather data is unavailable right now"
-  );
 
-  return{
-    cityName: name,
-    country,
-    temperature: forecast.current.temperature_2m,
-    humidity: forecast.current.relative_humidity_2m,
-    windSpeed: forecast.current.wind_speed_10m,
-    high: forecast.daily.temperature_2m_max[0],
-    low: forecast.daily.temperature_2m_min[0],
-    condition: weatherConditions[forecast.current.weather_code] ?? "Unknown",
+  const weatherResponse = await fetch(weatherUrl);
+
+  if (!weatherResponse.ok) {
+    throw new Error("Weather data is unavailable right now");
   }
+
+  const weatherData: WeatherResponse = await weatherResponse.json();
+
+  return {
+    cityName: location.name,
+    country: location.country,
+    temperature: weatherData.current.temperature_2m,
+    humidity: weatherData.current.relative_humidity_2m,
+    windSpeed: weatherData.current.wind_speed_10m,
+    high: weatherData.daily.temperature_2m_max[0],
+    low: weatherData.daily.temperature_2m_min[0],
+    condition: weatherConditions[weatherData.current.weather_code] ?? "Unknown",
+  };
 }
