@@ -95,8 +95,3 @@ export const getWeather = async (city: string): Promise<WeatherData> => {
     condition: weatherConditions[forecast.current.weather_code] ?? "Unknown",
   }
 }
-
-
-
-
-
