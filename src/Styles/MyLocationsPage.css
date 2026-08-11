@@ -1,0 +1,64 @@
+.my-locations {
+  width: 100%;
+}
+
+.saved-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 700px;
+  margin: 0 auto 25px;
+}
+
+.saved-header h2 {
+  margin: 0;
+  color: #1e3a5f;
+}
+
+.saved-header button,
+.saved-weather-item > button {
+  padding: 9px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #b42318;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.saved-header button:hover,
+.saved-weather-item > button:hover {
+  background: #8f1c13;
+}
+
+.empty-message {
+  text-align: center;
+  color: #666;
+}
+
+.saved-weather-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.saved-weather-item {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.saved-weather-item .weather-card {
+  margin-bottom: 10px;
+}
+
+.saved-weather-item > button {
+  display: block;
+  margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  .saved-header {
+    align-items: flex-start;
+  }
+}

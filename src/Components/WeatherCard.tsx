@@ -1,7 +1,9 @@
 import type { WeatherData } from "../Types/Weather";
-import "../styles/weatherCard.css";
+import "../Styles/WeatherCard.css";
 
-function WeatherCard({
+const round = (value: number) => Math.round(value);
+
+const WeatherCard = ({
   cityName,
   country,
   temperature,
@@ -10,42 +12,35 @@ function WeatherCard({
   low,
   humidity,
   windSpeed,
+}: WeatherData) => {
+  const details = [
+    { label: "High", value: `${round(high)}°C` },
+    { label: "Low", value: `${round(low)}°C` },
+    { label: "Humidity", value: `${humidity}%` },
+    { label: "Wind", value: `${windSpeed} km/h` },
+  ];
 
-  
-}: WeatherData) {
   return (
     <section className="weather-card">
-      <h2>
-        {cityName}, {country}
-      </h2>
+      <div className="weather-card-header">
+        <h2>{cityName}, {country}</h2>
+        <p className="condition">{condition}</p>
+      </div>
 
-      <p className="temperature">{temperature}°C</p>
-
-      <p className="condition">{condition}</p>
+      <div className="weather-main">
+        <p className="temperature">{round(temperature)}°C</p>
+      </div>
 
       <div className="weather-details">
-        <div>
-          <span>High</span>
-          <strong>{high}°C</strong>
-        </div>
-
-        <div>
-          <span>Low</span>
-          <strong>{low}°C</strong>
-        </div>
-
-        <div>
-          <span>Humidity</span>
-          <strong>{humidity}%</strong>
-        </div>
-
-        <div>
-          <span>Wind</span>
-          <strong>{windSpeed} km/h</strong>
-        </div>
+        {details.map(({ label, value }) => (
+          <div className="weather-detail" key={label}>
+            <span>{label}</span>
+            <strong>{value}</strong>
+          </div>
+        ))}
       </div>
     </section>
   );
-}
+};
 
 export default WeatherCard;

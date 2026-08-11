@@ -1,12 +1,19 @@
-import { BrowserRouter, createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Routes } from "react-router-dom";
-import { Route } from "react-router-dom";
-import  {HomePage}  from "../Pages/HomePage";
+import { createBrowserRouter, RouterProvider, type RouteObject } from "react-router-dom";
 import { Structure } from "../Components/Structure";
+<<<<<<< HEAD
 import { AddressKept } from "../Pages/AddressKept";
+=======
+import { HomePage } from "../Pages/HomePage";
+import { MyLocationsPage } from "../Pages/MyLocationsPage";
+>>>>>>> 7f77826bb0e3c4fb80aabd1a65a9250b70e0dc72
 
-const router = createBrowserRouter([
+const routes: RouteObject[] = [
+  {
+    path: "/",
+    element: <Structure />,
+    children: [{index: true, element: <HomePage/>},
     {
+<<<<<<< HEAD
         element: <Structure />,
         children: [
            {
@@ -18,9 +25,14 @@ const router = createBrowserRouter([
                 element: <AddressKept />
            },
         ],
+=======
+      path: "MyLocations",
+      element: <MyLocationsPage />
+>>>>>>> 7f77826bb0e3c4fb80aabd1a65a9250b70e0dc72
     },
-]);
+    ],
+  },
+];
 
-export const WeatherAppRouter = () => {
-    return <RouterProvider router={router}/>
-}
+const router = createBrowserRouter(routes);
+export const WeatherAppRouter = () => <RouterProvider router={router} />
