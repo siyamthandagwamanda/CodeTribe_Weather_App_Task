@@ -19,3 +19,7 @@ const router = createBrowserRouter([
     ]
   }
 ]);
+
+export const WeatherAppRouter = () => {
+  return <RouterProvider router={router} />
+}
