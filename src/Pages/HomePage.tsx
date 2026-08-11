@@ -1,7 +1,8 @@
 import { useState } from "react";
+
 import { SearchBar } from "../Components/SearchBar";
 import WeatherCard from "../Components/WeatherCard";
-import { getWeather } from "../Api/Weather"
+import { getWeather } from "../Api/Weather";
 import { saveWeather } from "../Utils/SavedWeatherStorage";
 import type { WeatherData } from "../Types/Weather";
 
@@ -13,6 +14,7 @@ export const HomePage = () => {
 
   const handleSearch = async () => {
     const trimmedCity = city.trim();
+
     if (!trimmedCity) {
       setError("Please enter a city name.");
       setWeather(null);
@@ -23,10 +25,16 @@ export const HomePage = () => {
     setError(null);
 
     try {
-      setWeather(weather);
+      const weatherData = await getWeather(trimmedCity);
+      setWeather(weatherData);
     } catch (err) {
       setWeather(null);
-      setError(err instanceof Error ? err.message : "An unexpected error occurred.");
+
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Something went wrong.");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -34,14 +42,25 @@ export const HomePage = () => {
 
   return (
     <main className="home-page">
-      <SearchBar city={city} onCityChange={setCity} onSearch={handleSearch} />
+      <SearchBar
+        city={city}
+        onCityChange={setCity}
+        onSearch={handleSearch}
+      />
 
-      {isLoading && <p className="loading">Loading weather...</p>}
+      {isLoading && <p>Loading weather...</p>}
+
       {error && <p className="error-message">{error}</p>}
+
       {weather && !isLoading && (
         <>
           <WeatherCard {...weather} />
-          <button type="button" className="save-city-button" onClick={() => saveWeather(weather)}>
+
+          <button
+            type="button"
+            className="save-city-button"
+            onClick={() => saveWeather(weather)}
+          >
             Save City
           </button>
         </>
