@@ -20,7 +20,7 @@ input {
   font-family: inherit;
 }
 
-button {
+.save-city-button{
   cursor: pointer;
   padding: 8px 14px;
   border: 1px solid #1e3a5f;
