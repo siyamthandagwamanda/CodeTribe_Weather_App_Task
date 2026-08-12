@@ -15,7 +15,7 @@ function WeatherCard({
 
 }: WeatherData) {
   const { temperatureUnit } = useWeatherSettings();
-  
+
   return (
     <section className="weather-card">
 
@@ -27,18 +27,18 @@ function WeatherCard({
       </div>
 
       <div className="weather-main">
-        <p className="temperature">{Math.round(temperature)}°C</p>
+        <p className="temperature">{formatTemperature(temperature, temperatureUnit)}</p>
       </div>
 
       <div className="weather-details">
         <div className="weather-detail">
           <span>High</span>
-          <strong>{Math.round(high)}°C</strong>
+          <strong>{formatTemperature(high, temperatureUnit)}</strong>
         </div>
 
         <div className="weather-detail">
           <span>Low</span>
-          <strong>{Math.round(low)}°C</strong>
+          <strong>{formatTemperature(low, temperatureUnit)}</strong>
         </div>
 
         <div className="weather-detail">
