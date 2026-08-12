@@ -14,6 +14,8 @@ function WeatherCard({
   windSpeed,
 
 }: WeatherData) {
+  const { temperatureUnit } = useWeatherSettings();
+  
   return (
     <section className="weather-card">
 
