@@ -1,18 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
-
-type Settings = { 
-    temperatureUnit: "C" | "F"; 
-    theme: "light" | "dark"; 
-    toggleTemperatureUnit: () => void; 
-    toggleTheme: () => void; 
-};
+import {  useEffect, useState } from "react";
+import { WeatherSettings} from "../Context/WeatherSettingsContext"
 
 type Props = { 
     children: 
     React.ReactNode; 
 };
-
-const WeatherSettings = createContext<Settings | undefined>(undefined);
 
 export function WeatherSettingsProvider({ children }: Props) {
 
@@ -50,11 +42,3 @@ export function WeatherSettingsProvider({ children }: Props) {
     );
 }
 
-export function useWeatherSettings() {
-    const settings = useContext(WeatherSettings);
-
-    if (settings === undefined){ 
-        throw new Error( "useWeatherSettings must be used inside WeatherSettingsProvider" ); 
-    }
-    return settings;
-}
