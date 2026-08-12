@@ -62,4 +62,4 @@ Weather data is provided by **Open-Meteo**. The application uses the Open-Meteo 
 
 ## Author
 
-Siyamthanda Gwamanda @Mlab CodeTribe 26/27
+Siyamthanda Gwamanda @Mlab CodeTribe 26/27 Digital Solution Trainee Year 26/27
