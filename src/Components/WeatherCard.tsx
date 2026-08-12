@@ -1,4 +1,6 @@
 import type { WeatherData } from "../Types/Weather";
+import { useWeatherSettings } from "../Context/WeatherSettingsContext";
+import { formatTemperature } from "../Utils/TemperatureConversion";
 import "../Styles/WeatherCard.css";
 
 function WeatherCard({
