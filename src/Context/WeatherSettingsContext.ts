@@ -6,3 +6,5 @@ export type Settings = {
     toggleTemperatureUnit: () => void;
     toggleTheme: () => void;
 };
+
+export const WeatherSettings = createContext<Settings | undefined>(undefined)
