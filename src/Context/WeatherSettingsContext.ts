@@ -8,3 +8,12 @@ export type Settings = {
 };
 
 export const WeatherSettings = createContext<Settings | undefined>(undefined)
+
+export function useWeatherSettings(){
+    const settings = useContext(WeatherSettings);
+
+    if (settings === undefined){
+        throw new Error("useWeatherSettings must be used inside WeatherSettingsProvider");
+    }
+    return settings;
+}
