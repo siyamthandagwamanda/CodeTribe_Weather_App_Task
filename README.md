@@ -32,8 +32,10 @@ A simple React + TypeScript weather application that allows users to search for 
 src/
 ├── Api/
 ├── Components/
+├── Context/
 ├── Pages/
 ├── Router/
+├── Utils/
 ├── Styles/
 └── Types/
 ```
