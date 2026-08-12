@@ -7,6 +7,12 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background: #f4f7fb;
   color: #222;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+body[dark-theme="dark"] {
+  background: #10192b;
+  color: #e8edf5;
 }
 
 button,
@@ -16,6 +22,15 @@ input {
 
 button {
   cursor: pointer;
+  padding: 8px 14px;
+  border: 1px solid #1e3a5f;
+  border-radius: 6px;
+  background: #f5f7fa;
+  color: #1e3a5f;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+
 }
 
 .home-page {
@@ -36,4 +51,9 @@ button {
   color: #b42318;
   background: #fdecec;
   border-radius: 6px;
+}
+
+body[dark-theme="dark"] .error-message {
+  color: #ff8a80;
+  background: #3a1a17;
 }
