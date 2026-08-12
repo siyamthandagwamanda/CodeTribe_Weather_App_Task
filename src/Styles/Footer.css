@@ -11,3 +11,7 @@
   margin: 0;
   font-size: 0.9rem;
 }
+
+body[dark-theme="dark"] .footer {
+  background: #16233a;
+}

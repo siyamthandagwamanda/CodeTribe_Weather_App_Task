@@ -14,3 +14,7 @@
   margin: 8px 0 0;
   font-size: 1.1rem;
 }
+
+body[dark-theme="dark"] .header {
+  background: #16233a;
+}

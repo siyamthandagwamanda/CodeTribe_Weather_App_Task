@@ -63,6 +63,29 @@
   font-size: 1rem;
 }
 
+body[dark-theme="dark"] .weather-card {
+  background: #16233a;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+body[dark-theme="dark"] .weather-card-header h2,
+body[dark-theme="dark"] .temperature {
+  color: #e8edf5;
+}
+
+body[dark-theme="dark"] .condition,
+body[dark-theme="dark"] .weather-detail span {
+  color: #a8b6cc;
+}
+
+body[dark-theme="dark"] .weather-detail {
+  background: #1e2f47;
+}
+
+body[dark-theme="dark"] .weather-detail strong {
+  color: #e8edf5;
+}
+
 @media (max-width: 600px) {
   .weather-card {
     padding: 20px;

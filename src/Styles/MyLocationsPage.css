@@ -36,6 +36,14 @@
   color: #666;
 }
 
+body[dark-theme="dark"] .saved-header h2 {
+  color: #e8edf5;
+}
+
+body[dark-theme="dark"] .empty-message {
+  color: #a8b6cc;
+}
+
 .saved-weather-list {
   display: flex;
   flex-direction: column;
