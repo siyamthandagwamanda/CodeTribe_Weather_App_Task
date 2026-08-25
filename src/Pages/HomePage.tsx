@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useState, useEffect, useCallback } from "react";
+=======
+import { useState } from "react";
+>>>>>>> a6c602fc8f5b076756b782f51b9e638369fabf36
 import { SearchBar } from "../Components/SearchBar";
 import WeatherCard from "../Components/WeatherCard";
 import { getWeather, getWeatherByCoords } from "../Api/Weather";
@@ -72,11 +76,16 @@ export const HomePage = () => {
       checkWeatherAlerts(data);
       localStorage.setItem("cached_weather", JSON.stringify(data));
     } catch (err) {
+<<<<<<< HEAD
       if (err instanceof Error) {
         loadFallbackCache(err.message);
       } else {
         loadFallbackCache("An error occurred while fetching weather.");
       }
+=======
+      setWeather(null);
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+>>>>>>> a6c602fc8f5b076756b782f51b9e638369fabf36
     } finally {
       setIsLoading(false);
     }
@@ -132,6 +141,7 @@ export const HomePage = () => {
   };
 
   return (
+<<<<<<< HEAD
     <main className={`home-page container-layout ${theme}`}>
  
       <header className="app-header">
@@ -145,6 +155,21 @@ export const HomePage = () => {
             Unit: °{unit === "metric" ? "C" : "F"}
           </button>
 
+=======
+    <main className="home-page">
+      <SearchBar
+        city={city}
+        onCityChange={setCity}
+        onSearch={handleSearch}
+      />
+
+      {isLoading && <p>Loading weather...</p>}
+      {error && <p className="error-message">{error}</p>}
+
+      {weather && !isLoading && (
+        <>
+          <WeatherCard {...weather} />
+>>>>>>> a6c602fc8f5b076756b782f51b9e638369fabf36
           <button
             type="button"
             className="interactive-btn toggle-btn"
