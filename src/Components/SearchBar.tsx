@@ -21,7 +21,7 @@ export function SearchBar({
     >
       <input
         type="text"
-        placeholder="Enter a city"
+        placeholder="Search your city now..."
         value={city}
         onChange={(event) => onCityChange(event.target.value)}
         aria-label="City name"
