@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { useState, useEffect, useCallback } from "react";
-=======
-import { useState } from "react";
->>>>>>> a6c602fc8f5b076756b782f51b9e638369fabf36
 import { SearchBar } from "../Components/SearchBar";
 import WeatherCard from "../Components/WeatherCard";
 import { getWeather, getWeatherByCoords } from "../Api/Weather";
@@ -15,7 +11,6 @@ export const HomePage = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   
-  
   const [forecastView, setForecastView] = useState<"hourly" | "daily">("hourly");
   const [unit, setUnit] = useState<"metric" | "imperial">(() => 
     (localStorage.getItem("weather_unit") as "metric" | "imperial") || "metric"
@@ -26,18 +21,15 @@ export const HomePage = () => {
   const [savedCities, setSavedCities] = useState<WeatherData[]>(() => getSavedLocations());
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
- 
   useEffect(() => {
     document.documentElement.className = theme;
     localStorage.setItem("weather_theme", theme);
   }, [theme]);
 
- 
   useEffect(() => {
     localStorage.setItem("weather_unit", unit);
   }, [unit]);
 
-  
   const checkWeatherAlerts = useCallback((data: WeatherData) => {
     const highWindThreshold = unit === "metric" ? 15 : 33; 
     if (data.windSpeed > highWindThreshold) {
@@ -76,22 +68,16 @@ export const HomePage = () => {
       checkWeatherAlerts(data);
       localStorage.setItem("cached_weather", JSON.stringify(data));
     } catch (err) {
-<<<<<<< HEAD
       if (err instanceof Error) {
         loadFallbackCache(err.message);
       } else {
         loadFallbackCache("An error occurred while fetching weather.");
       }
-=======
-      setWeather(null);
-      setError(err instanceof Error ? err.message : "Something went wrong.");
->>>>>>> a6c602fc8f5b076756b782f51b9e638369fabf36
     } finally {
       setIsLoading(false);
     }
   }, [unit, checkWeatherAlerts, loadFallbackCache]);
 
-  
   useEffect(() => {
     const initLocation = async () => {
       setIsLoading(true);
@@ -116,7 +102,6 @@ export const HomePage = () => {
             }
           },
           () => {
-           
             fetchByCityName("Durban");
           }
         );
@@ -141,9 +126,7 @@ export const HomePage = () => {
   };
 
   return (
-<<<<<<< HEAD
     <main className={`home-page container-layout ${theme}`}>
- 
       <header className="app-header">
         <h1 className="logo">WeatherPulse</h1>
         <div className="controls-group">
@@ -154,22 +137,6 @@ export const HomePage = () => {
           >
             Unit: °{unit === "metric" ? "C" : "F"}
           </button>
-
-=======
-    <main className="home-page">
-      <SearchBar
-        city={city}
-        onCityChange={setCity}
-        onSearch={handleSearch}
-      />
-
-      {isLoading && <p>Loading weather...</p>}
-      {error && <p className="error-message">{error}</p>}
-
-      {weather && !isLoading && (
-        <>
-          <WeatherCard {...weather} />
->>>>>>> a6c602fc8f5b076756b782f51b9e638369fabf36
           <button
             type="button"
             className="interactive-btn toggle-btn"
@@ -180,14 +147,12 @@ export const HomePage = () => {
         </div>
       </header>
 
-   
       <SearchBar
         city={city}
         onCityChange={setCity}
         onSearch={() => fetchByCityName(city)}
       />
 
-    
       {alertMessage && (
         <aside className="alert-banner" role="alert">
           <p>{alertMessage}</p>
@@ -196,7 +161,6 @@ export const HomePage = () => {
 
       {isLoading && <p className="status-message loading">Loading weather information...</p>}
       {error && <p className="status-message error">{error}</p>}
-
 
       {weather && !isLoading && (
         <section className="weather-dashboard">
@@ -229,7 +193,6 @@ export const HomePage = () => {
             </div>
           </div>
 
-        
           <div className="forecast-container">
             {forecastView === "hourly" ? (
               <div className="forecast-grid">
@@ -262,7 +225,6 @@ export const HomePage = () => {
         </section>
       )}
 
-    
       {savedCities.length > 0 && (
         <section className="saved-locations-drawer">
           <h3>Saved Locations</h3>
