@@ -1,5 +1,4 @@
 import { useState } from "react";
-
 import { SearchBar } from "../Components/SearchBar";
 import WeatherCard from "../Components/WeatherCard";
 import { getWeather } from "../Api/Weather";
@@ -29,12 +28,7 @@ export const HomePage = () => {
       setWeather(weatherData);
     } catch (err) {
       setWeather(null);
-
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Something went wrong.");
-      }
+      setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
       setIsLoading(false);
     }
@@ -49,13 +43,11 @@ export const HomePage = () => {
       />
 
       {isLoading && <p>Loading weather...</p>}
-
       {error && <p className="error-message">{error}</p>}
 
       {weather && !isLoading && (
         <>
           <WeatherCard {...weather} />
-
           <button
             type="button"
             className="save-city-button"
