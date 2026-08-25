@@ -1,34 +1,63 @@
 import type { WeatherData } from "../Types/Weather";
 
-const STORAGE_KEY = "saved_weather_locations";
+const SAVED_WEATHER_KEY = "savedWeather";
 
-export const getSavedLocations = (): WeatherData[] => {
-  const data = localStorage.getItem(STORAGE_KEY);
-  if (!data) return [];
-  try {
-    return JSON.parse(data);
-  } catch (error) {
-    console.error("Error parsing saved locations:", error);
+function isSameCity(first: WeatherData, second: WeatherData) {
+  return (
+    first.cityName === second.cityName &&
+    first.country === second.country
+  );
+}
+
+export function getSavedWeather(): WeatherData[] {
+  const savedWeather = localStorage.getItem(SAVED_WEATHER_KEY);
+
+  if (!savedWeather) {
     return [];
   }
-};
 
-export const saveWeather = (weather: WeatherData): void => {
-  const currentSaved = getSavedLocations();
-  const exists = currentSaved.some(
-    (item) => item.city.toLowerCase() === weather.city.toLowerCase()
-  );
-
-  if (!exists) {
-    const updated = [...currentSaved, weather];
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+  try {
+    return JSON.parse(savedWeather) as WeatherData[];
+  } catch {
+    localStorage.removeItem(SAVED_WEATHER_KEY);
+    return [];
   }
-};
+}
 
-export const removeSavedLocation = (cityName: string): void => {
-  const currentSaved = getSavedLocations();
-  const updated = currentSaved.filter(
-    (item) => item.city.toLowerCase() !== cityName.toLowerCase()
+export function saveWeather(weather: WeatherData) {
+  const savedWeather = getSavedWeather();
+
+  const alreadySaved = savedWeather.some(function (saved) {
+    return isSameCity(saved, weather);
+  });
+
+  if (alreadySaved) {
+    return;
+  }
+
+  const updatedWeather = [...savedWeather, weather];
+
+  localStorage.setItem(
+    SAVED_WEATHER_KEY,
+    JSON.stringify(updatedWeather)
   );
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
-};
+}
+
+export function removeWeather(weatherToRemove: WeatherData) {
+  const savedWeather = getSavedWeather();
+
+  const updatedWeather = savedWeather.filter(function (weather) {
+    return !isSameCity(weather, weatherToRemove);
+  });
+
+  localStorage.setItem(
+    SAVED_WEATHER_KEY,
+    JSON.stringify(updatedWeather)
+  );
+
+  return updatedWeather;
+}
+
+export function clearSavedWeather() {
+  localStorage.removeItem(SAVED_WEATHER_KEY);
+}
