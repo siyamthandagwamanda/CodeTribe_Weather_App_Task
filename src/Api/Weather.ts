@@ -1,108 +1,76 @@
 import type { WeatherData } from "../Types/Weather";
 
-const weatherConditions: Record<number, string> = {
-  0: "Clear sky",
-  1: "Mainly Clear",
-  2: "Partly Cloudy",
-  3: "Overcast",
-  45: "Fog",
-  48: "Depositing Rime Fog",
-  51: "Light Drizzle",
-  53: "Moderate Drizzle",
-  55: "Dense Drizzle",
-  61: "Light Rain",
-  63: "Moderate Rain",
-  65: "Heavy Rain",
-  71: "Light Snow",
-  73: "Moderate Snow",
-  75: "Heavy Snow",
-  80: "Rain Showers",
-  81: "Heavy Rain Showers",
-  82: "Violent Rain Showers",
-  95: "Thunderstorm",
-};
+const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY || "YOUR_OPENWEATHER_API_KEY";
+const BASE_URL = "https://api.openweathermap.org/data/2.5";
 
-type City = {
-  name: string;
-  country: string;
-  latitude: number;
-  longitude: number;
-};
-
-type CityResponse = {
-  results?: City[];
-};
-
-type WeatherResponse = {
-  current: {
-    temperature_2m: number;
-    relative_humidity_2m: number;
-    wind_speed_10m: number;
-    weather_code: number;
-  };
-
-  daily: {
-    temperature_2m_max: number[];
-    temperature_2m_min: number[];
-  };
-};
-
-export async function getWeather(city: string): Promise<WeatherData> {
-  const cityName = city.trim();
-
-  if (!cityName) {
-    throw new Error("City name cannot be empty");
-  }
+const formatWeatherData = (current: any, forecast: any, unit: "metric" | "imperial"): WeatherData => {
+  
+  const hourly = forecast.list.slice(0, 8).map((item: any) => ({
+    time: new Date(item.dt * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+    temp: Math.round(item.main.temp),
+    icon: item.weather[0].icon,
+    condition: item.weather[0].main,
+  }));
 
  
-  const cityUrl =
-    `https://geocoding-api.open-meteo.com/v1/search` +
-    `?name=${encodeURIComponent(cityName)}` +
-    `&count=1` +
-    `&language=en` +
-    `&format=json`;
-
-  const cityResponse = await fetch(cityUrl);
-
-  if (!cityResponse.ok) {
-    throw new Error(
-      "Couldn't reach the city service, try again in a moment"
-    );
-  }
-
-  const cityData: CityResponse = await cityResponse.json();
-
-  const location = cityData.results?.[0];
-
-  if (!location) {
-    throw new Error(`No city found matching "${cityName}"`);
-  }
-
- 
-  const weatherUrl =
-    `https://api.open-meteo.com/v1/forecast` +
-    `?latitude=${location.latitude}` +
-    `&longitude=${location.longitude}` +
-    `&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m` +
-    `&daily=temperature_2m_max,temperature_2m_min` +
-    `&timezone=auto`;
-
-  const weatherResponse = await fetch(weatherUrl);
-
-  if (!weatherResponse.ok) {
-    throw new Error("Weather data is unavailable right now");
-  }
-
-  const weatherData: WeatherResponse = await weatherResponse.json();
+  const daily = forecast.list
+    .filter((_: any, index: number) => index % 8 === 0)
+    .map((item: any) => ({
+      day: new Date(item.dt * 1000).toLocaleDateString([], { weekday: "short" }),
+      tempMin: Math.round(item.main.temp_min),
+      tempMax: Math.round(item.main.temp_max),
+      icon: item.weather[0].icon,
+      condition: item.weather[0].main,
+    }));
 
   return {
-    cityName: location.name,
-    country: location.country,
-    temperature: weatherData.current.temperature_2m,
-    humidity: weatherData.current.relative_humidity_2m,
-    windSpeed: weatherData.current.wind_speed_10m,
-    high: weatherData.daily.temperature_2m_max[0],
-    low: weatherData.daily.temperature_2m_min[0],
-    condition: weatherConditions[weatherData.current.weather_code] ?? "Unknown",
+    city: current.name,
+    country: current.sys.country,
+    temp: Math.round(current.main.temp),
+    feelsLike: Math.round(current.main.feels_like),
+    humidity: current.main.humidity,
+    windSpeed: current.wind.speed,
+    condition: current.weather[0].main,
+    description: current.weather[0].description,
+    icon: current.weather[0].icon,
+    unit,
+    hourly,
+    daily,
   };
-}
+};
+
+export const getWeather = async (city: string, unit: "metric" | "imperial" = "metric"): Promise<WeatherData> => {
+  const [currentRes, forecastRes] = await Promise.all([
+    fetch(`${BASE_URL}/weather?q=${encodeURIComponent(city)}&units=${unit}&appid=${API_KEY}`),
+    fetch(`${BASE_URL}/forecast?q=${encodeURIComponent(city)}&units=${unit}&appid=${API_KEY}`),
+  ]);
+
+  if (!currentRes.ok || !forecastRes.ok) {
+    throw new Error(`City "${city}" not found. Please try another search.`);
+  }
+
+  const currentData = await currentRes.json();
+  const forecastData = await forecastRes.json();
+
+  return formatWeatherData(currentData, forecastData, unit);
+};
+
+export const getWeatherByCoords = async (
+  lat: number,
+  lon: number,
+  unit: "metric" | "imperial" = "metric"
+): Promise<WeatherData> => {
+  const [currentRes, forecastRes] = await Promise.all([
+    fetch(`${BASE_URL}/weather?lat=${lat}&lon=${lon}&units=${unit}&appid=${API_KEY}`),
+    fetch(`${BASE_URL}/forecast?lat=${lat}&lon=${lon}&units=${unit}&appid=${API_KEY}`),
+  ]);
+
+  if (!currentRes.ok || !forecastRes.ok) {
+    throw new Error("Failed to fetch weather data for your current location.");
+  }
+
+  const currentData = await currentRes.json();
+  const forecastData = await forecastRes.json();
+
+  return formatWeatherData(currentData, forecastData, unit);
+};
