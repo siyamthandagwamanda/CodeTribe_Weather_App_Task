@@ -1,6 +1,6 @@
 import type { WeatherData } from "../Types/Weather";
 
-const SEVERE_CODES = new Set([65, 75, 82, 95, 96, 99]);
+const SEVERE_CODES = new Set([1, 65, 75, 82, 95, 96, 99]);
 
 export function isSevereWeather(weather: WeatherData): boolean {
   return weather.conditionCode !== undefined && SEVERE_CODES.has(weather.conditionCode);
