@@ -1,58 +1,169 @@
+:root {
+  --bg-color: #f4f7fb;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --btn-bg: #ffffff;
+  --btn-hover: #f1f5f9;
+  --btn-text: #1e293b;
+  --btn-border: #cbd5e1;
+  --primary-accent: #2563eb;
+  --primary-accent-hover: #1d4ed8;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.05);
+}
+
+body[dark-theme="dark"] {
+  --bg-color: #0f172a;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --card-bg: #1e293b;
+  --card-border: #334155;
+  --btn-bg: #334155;
+  --btn-hover: #475569;
+  --btn-text: #f8fafc;
+  --btn-border: #475569;
+  --primary-accent: #3b82f6;
+  --primary-accent-hover: #2563eb;
+  --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f4f7fb;
-  color: #222;
-    transition: background 0.2s ease, color 0.2s ease;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-body[dark-theme="dark"] {
-  background: #10192b;
-  color: #e8edf5;
-}
-
-button,
-input {
+button, input {
   font-family: inherit;
+  font-size: 0.95rem;
 }
 
-.save-city-button{
-  cursor: pointer;
-  padding: 8px 14px;
-  border: 1px solid #1e3a5f;
-  border-radius: 6px;
-  background: #f5f7fa;
-  color: #1e3a5f;
-  font-weight: 600;
-  font-size: 0.85rem;
-  cursor: pointer;
+
+.home-page,
+.Structure .main-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
-.home-page {
+
+.search-form {
+  display: flex;
+  gap: 8px;
   width: 100%;
 }
 
-.loading {
-  text-align: center;
-  color: #1e3a5f;
+.search-input {
+  flex: 1;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--btn-border);
+  background-color: var(--card-bg);
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  border-color: var(--primary-accent);
+}
+
+button,
+.save-city-button {
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--btn-text);
   font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+button:hover,
+.save-city-button:hover {
+  background: var(--btn-hover);
+}
+
+
+.btn-primary {
+  background: var(--primary-accent);
+  color: #ffffff;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: var(--primary-accent-hover);
+}
+
+.weather-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.home-actions {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+}
+
+.error-message,
+.success-message,
+.offline-banner {
+  width: 100%;
+  margin: 0;
+  padding: 12px 16px;
+  text-align: center;
+  border-radius: var(--radius-md);
+  font-weight: 500;
 }
 
 .error-message {
-  max-width: 700px;
-  margin: 0 auto 20px;
-  padding: 12px 15px;
-  text-align: center;
-  color: #b42318;
-  background: #fdecec;
-  border-radius: 6px;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
 }
 
-body[dark-theme="dark"] .error-message {
-  color: #ff8a80;
-  background: #3a1a17;
+.success-message {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.offline-banner {
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+
+@media (max-width: 600px) {
+  .search-form {
+    flex-direction: column;
+  }
 }
