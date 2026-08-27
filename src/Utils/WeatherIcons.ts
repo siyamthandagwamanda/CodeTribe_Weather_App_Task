@@ -1,5 +1,3 @@
-
-
 const WEATHER_CONDITIONS: Record<number, string> = {
   0: "Clear sky",
   1: "Mainly Clear",
