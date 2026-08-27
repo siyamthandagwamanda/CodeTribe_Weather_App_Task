@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import WeatherCard from "../Components/WeatherCard";
 import { getSavedWeather, removeWeather, clearSavedWeather, } from "../Utils/SavedWeatherStorage";
 import type { WeatherData } from "../Types/Weather";
 import "../Styles/MyLocationsPage.css";
 
 export const MyLocationsPage = () => {
-   const [savedWeather, setSavedWeather] = useState<WeatherData[]>([]);
+   const navigate = useNavigate();
 
-   useEffect(() => { 
-    const savedCities = getSavedWeather(); setSavedWeather(savedCities); 
-  }, []);
+   const [savedWeather, setSavedWeather] = useState<WeatherData[]>(() => getSavedWeather());
 
   const handleRemove = (weather: WeatherData) => { 
     const updatedWeather = removeWeather(weather); setSavedWeather(updatedWeather); 
@@ -17,6 +16,10 @@ export const MyLocationsPage = () => {
 
   const handleClearAll = () => { 
     clearSavedWeather(); setSavedWeather([]); 
+  };
+
+  const handleView = (weather: WeatherData) => {
+    navigate("/", { state: { weather } });
   };
 
   return(
@@ -38,9 +41,15 @@ export const MyLocationsPage = () => {
               > 
                 <WeatherCard {...weather} /> 
 
-                <button type="button" 
-                  onClick={() => handleRemove(weather)} > Remove 
-                </button> 
+                <div className="saved-weather-actions">
+                  <button type="button" className="view-button"
+                    onClick={() => handleView(weather)} > View 
+                  </button> 
+
+                  <button type="button" 
+                    onClick={() => handleRemove(weather)} > Remove 
+                  </button> 
+                </div>
               </div>
             ))} 
           </div> 
