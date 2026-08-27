@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Save } from 'lucide-react';
-import { WifiOff } from 'lucide-react';
+import { Save, WifiOff } from "lucide-react";
 import { SearchBar } from "../Components/SearchBar";
 import WeatherCard from "../Components/WeatherCard";
 import { WeatherForecastPanel } from "../Components/WeatherForecastPanel";
@@ -32,7 +31,6 @@ export const HomePage = () => {
       cacheLastWeather(weatherData);
       void notifyIfSevere(weatherData);
     } catch (err) {
-
       const cached = getCachedWeather();
 
       if (cached && !navigator.onLine) {
@@ -62,7 +60,6 @@ export const HomePage = () => {
         getWeatherByCoordinates(position.coords.latitude, position.coords.longitude)
       );
     } catch {
-
       const cached = getCachedWeather();
 
       if (cached) {
@@ -77,12 +74,9 @@ export const HomePage = () => {
   }, [showFreshWeather]);
 
   useEffect(() => {
-
     if (!weatherFromNavigation) {
- 
       void handleUseLocation(true);
     }
-
   }, []);
 
   useEffect(() => {
@@ -156,17 +150,21 @@ export const HomePage = () => {
       )}
 
       {weather && !isLoading && (
-        <>
-          <WeatherCard {...weather} />
+        <div className="weather-grid">
+          <div className="weather-card-wrapper">
+            <WeatherCard {...weather} />
 
-          <div className="home-actions">
-            <button type="button" className="save-city-button" onClick={handleSave}>
-              <Save size={18} className="button-icon" /> Save City
-            </button>
+            <div className="home-actions">
+              <button type="button" className="save-city-button" onClick={handleSave}>
+                <Save size={18} className="button-icon" /> Save City
+              </button>
+            </div>
           </div>
 
-          <WeatherForecastPanel weather={weather} />
-        </>
+          <div className="weather-panel-wrapper">
+            <WeatherForecastPanel weather={weather} />
+          </div>
+        </div>
       )}
     </main>
   );
